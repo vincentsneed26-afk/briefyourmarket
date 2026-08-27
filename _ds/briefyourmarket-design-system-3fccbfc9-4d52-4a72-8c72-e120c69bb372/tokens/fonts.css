@@ -1,5 +1,0 @@
-/* BriefYourMarket web type. SUBSTITUTION: no original font binaries were obtainable from
-   briefyourmarket.com (Elementor serves Google Fonts). Poppins is used as the closest match
-   to the site's geometric, rounded SaaS voice. Replace with the licensed brand font if different. */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-:root{--font-display:'Poppins',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--font-body:'Poppins',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--font-mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,monospace}

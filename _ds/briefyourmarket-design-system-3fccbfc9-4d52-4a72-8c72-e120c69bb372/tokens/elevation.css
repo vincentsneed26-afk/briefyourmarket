@@ -1,9 +1,0 @@
-/* Both shadows are literal values from the live site. Elevation is used sparingly: cards are
-   defined by hairline borders first, shadow second. */
-:root{
---shadow-1:rgba(0,0,0,.12) 0px 1px 6px 0px,rgba(0,0,0,.12) 0px 1px 4px 0px;
---shadow-2:rgba(0,0,0,.1) 0px 0px 20px 0px;
---shadow-none:none;
---shadow-card:var(--shadow-1);--shadow-raised:var(--shadow-2);--shadow-overlay:var(--shadow-2);
---inset-hairline:inset 0 0 0 1px var(--border-muted);
-}

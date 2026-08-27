@@ -1,8 +1,0 @@
-/* 4px base grid. The 2/3/6/13px steps are literal values measured on the live site and are kept
-   for faithful recreation of dense UI (badge padding, icon gaps); do not invent new steps. */
-:root{
---space-0:0;--space-025:2px;--space-05:3px;--space-1:4px;--space-15:6px;--space-2:8px;--space-25:12px;--space-3:13px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--space-24:96px;--space-32:128px;
---gap-inline:var(--space-2);--gap-stack:var(--space-4);--gap-section:var(--space-20);
---control-height-sm:32px;--control-height-md:40px;--control-height-lg:48px;--control-height-touch:44px;
---control-padding-x-sm:var(--space-25);--control-padding-x-md:var(--space-5);--control-padding-x-lg:var(--space-6);
-}
