@@ -1,0 +1,4 @@
+/* Literal radii observed on briefyourmarket.com — the brand mixes tight 2-6px UI corners with
+   very large 25-100px pill/blob shapes for buttons and media. */
+:root{--radius-xs:2px;--radius-sm:3px;--radius-md:6px;--radius-lg:25px;--radius-xl:50px;--radius-2xl:80px;--radius-3xl:100px;--radius-pill:9999px;
+--radius-control:var(--radius-pill);--radius-card:var(--radius-md);--radius-media:var(--radius-lg);--radius-input:var(--radius-sm);--radius-badge:var(--radius-pill)}
