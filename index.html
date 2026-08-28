@@ -266,13 +266,164 @@
     </div>
   </div>
   <div class="footer__legal">
-    <p>&copy; 2026 BriefYourMarket All Rights Reserved. Registered Office: Brindley House, Little Eaton, Derby DE21 5EL, United Kingdom. Registered in England and Wales under Co. No. 06503130.</p>
+    <p style="font-size:12px">&copy; 2026 BriefYourMarket All Rights Reserved. Registered Office: Brindley House, Little Eaton, Derby DE21 5EL, United Kingdom. Registered in England and Wales under Co. No. 06503130.</p>
     <nav>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Cookie Policy</a>
+      <a href="#" style="font-size:12px">Privacy Policy</a>
+      <a href="#" style="font-size:12px">Cookie Policy</a>
     </nav>
   </div>
 </footer>
+
+<!-- Tweaks panel: preview helper only. Delete this block, its <style> hooks and the tweaks script before shipping. -->
+<button class="tweaks-fab" id="tweaks-fab" type="button" aria-label="Open tweaks">&#9881;</button>
+
+<aside class="tweaks" id="tweaks" hidden>
+  <div class="tweaks__head">
+    <strong>Tweaks</strong>
+    <button class="tweaks__close" id="tweaks-close" type="button">Close</button>
+  </div>
+
+  <h4>Accent</h4>
+  <div class="tweaks__swatches" id="accent-swatches" role="group" aria-label="Accent colour">
+    <button type="button" data-accent="#1da9e1" style="background:#1da9e1" aria-label="Brand cyan" aria-pressed="true"></button>
+    <button type="button" data-accent="#1279a3" style="background:#1279a3" aria-label="Deep teal" aria-pressed="false"></button>
+    <button type="button" data-accent="#1c2b4a" style="background:#1c2b4a" aria-label="Navy" aria-pressed="false"></button>
+    <button type="button" data-accent="#17a673" style="background:#17a673" aria-label="Green" aria-pressed="false"></button>
+  </div>
+
+  <h4>Layout</h4>
+  <div class="tweaks__row">
+    <label for="tw-width">Content width</label>
+    <select id="tw-width">
+      <option value="1240px">1240</option>
+      <option value="1400px">1400</option>
+      <option value="1100px">1100</option>
+    </select>
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-space">Section space</label>
+    <input id="tw-space" type="range" min="48" max="120" step="8" value="80">
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-radius">Image radius</label>
+    <input id="tw-radius" type="range" min="0" max="48" step="4" value="40">
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-cta">CTA shape</label>
+    <select id="tw-cta">
+      <option value="100px">Pill</option>
+      <option value="6px">Rounded</option>
+      <option value="0px">Square</option>
+    </select>
+  </div>
+
+  <h4>Sections</h4>
+  <div class="tweaks__row">
+    <label for="tw-phone">Header phone</label>
+    <input id="tw-phone" type="checkbox" checked>
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-second">Secondary hero CTA</label>
+    <input id="tw-second" type="checkbox" checked>
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-partners">Integration partners</label>
+    <input id="tw-partners" type="checkbox" checked>
+  </div>
+  <div class="tweaks__row">
+    <label for="tw-quotes">Testimonials</label>
+    <input id="tw-quotes" type="checkbox" checked>
+  </div>
+
+  <button class="tweaks__reset" id="tweaks-reset" type="button">Reset to defaults</button>
+</aside>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'aivoice-tweaks';
+  var defaults = {
+    accent: '#1da9e1', width: '1240px', space: 80, radius: 40, cta: '100px',
+    phone: true, second: true, partners: true, quotes: true
+  };
+  var state = Object.assign({}, defaults);
+  try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {}
+
+  var el = {
+    panel: document.getElementById('tweaks'),
+    fab: document.getElementById('tweaks-fab'),
+    close: document.getElementById('tweaks-close'),
+    reset: document.getElementById('tweaks-reset'),
+    swatches: document.getElementById('accent-swatches'),
+    width: document.getElementById('tw-width'),
+    space: document.getElementById('tw-space'),
+    radius: document.getElementById('tw-radius'),
+    cta: document.getElementById('tw-cta'),
+    phone: document.getElementById('tw-phone'),
+    second: document.getElementById('tw-second'),
+    partners: document.getElementById('tw-partners'),
+    quotes: document.getElementById('tw-quotes')
+  };
+
+  function show(node, on) { if (node) node.style.display = on ? '' : 'none'; }
+
+  function apply() {
+    root.style.setProperty('--cyan', state.accent);
+    root.style.setProperty('--shell', state.width);
+    if (state.space === defaults.space) root.style.removeProperty('--section-space');
+    else root.style.setProperty('--section-space', state.space + 'px');
+    if (state.radius === defaults.radius) root.style.removeProperty('--media-radius');
+    else root.style.setProperty('--media-radius', state.radius + 'px');
+    document.querySelectorAll('.btn').forEach(function (b) { b.style.borderRadius = state.cta; });
+    document.querySelectorAll('.hero__ctas .btn[style*="background-color: rgb(29"], .hero__ctas .btn--primary').forEach(function (b) {
+      b.style.backgroundColor = state.accent;
+    });
+    document.querySelectorAll('.stat__value').forEach(function (v) { v.style.color = state.accent; });
+
+    show(document.querySelector('.header__actions .phone'), state.phone);
+    show(document.querySelector('.btn--inverse'), state.second);
+    show(document.querySelector('.partners'), state.partners);
+    show(document.querySelector('.quotes'), state.quotes);
+
+    el.swatches.querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.accent === state.accent));
+    });
+    el.width.value = state.width;
+    el.space.value = state.space;
+    el.radius.value = state.radius;
+    el.cta.value = state.cta;
+    el.phone.checked = state.phone;
+    el.second.checked = state.second;
+    el.partners.checked = state.partners;
+    el.quotes.checked = state.quotes;
+
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  function set(key, value) { state[key] = value; apply(); }
+
+  el.swatches.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-accent]');
+    if (b) set('accent', b.dataset.accent);
+  });
+  el.width.addEventListener('change', function () { set('width', this.value); });
+  el.space.addEventListener('input', function () { set('space', Number(this.value)); });
+  el.radius.addEventListener('input', function () { set('radius', Number(this.value)); });
+  el.cta.addEventListener('change', function () { set('cta', this.value); });
+  ['phone', 'second', 'partners', 'quotes'].forEach(function (k) {
+    el[k].addEventListener('change', function () { set(k, this.checked); });
+  });
+  el.reset.addEventListener('click', function () { state = Object.assign({}, defaults); apply(); });
+
+  el.fab.addEventListener('click', function () { el.panel.hidden = false; el.fab.hidden = true; });
+  el.close.addEventListener('click', function () { el.panel.hidden = true; el.fab.hidden = false; });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !el.panel.hidden) { el.panel.hidden = true; el.fab.hidden = false; el.fab.focus(); }
+  });
+
+  apply();
+})();
+</script>
 
 <script>
 (function () {
